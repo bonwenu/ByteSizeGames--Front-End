@@ -1,11 +1,11 @@
 Socket Demo for angular----------------------------
 
-Open up ByteSizeGames folder in visual code.
-Run ng serve
-Split termrinal or create a new one and cd to src/app
-Run node server.js (this file controls how our server responds).
-Open up localhost:4200
-The main files are html, ts for page functionality, and server.js for server config
+1. Open up ByteSizeGames folder in visual code.
+2. Run ng serve
+3. Split termrinal or create a new one and cd to src/app
+4. Run node server.js (this file controls how our server responds).
+5. Open up localhost:4200
+6. The main files are html, ts for page functionality, and server.js for server config
 
 
 
