@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LeaderBoardComponent } from './components/leader-board/leader-board.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SocketComponent } from './components/socket/socket.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'home'
+  },
+  {
+    path: "socket",
+    component: SocketComponent
   }
 ];
 

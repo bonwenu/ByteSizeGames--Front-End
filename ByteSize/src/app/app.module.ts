@@ -8,7 +8,8 @@ import { LeaderBoardComponent } from './components/leader-board/leader-board.com
 import { ProfileComponent } from './components/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './module/material.module';
-import { LoginSignupComponent } from './components/login-signup/login-signup.component'
+import { LoginSignupComponent } from './components/login-signup/login-signup.component';
+import { SocketComponent } from './components/socket/socket.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoginSignupComponent } from './components/login-signup/login-signup.com
     HomeComponent,
     LeaderBoardComponent,
     ProfileComponent,
-    LoginSignupComponent
+    LoginSignupComponent,
+    SocketComponent
   ],
   imports: [
     BrowserModule,
