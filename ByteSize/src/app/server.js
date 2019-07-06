@@ -11,7 +11,7 @@ console.log("Server running...");
 
 // Direct to static file in
 app.get("/", function(req, res){
-    res.sendFile(__dirname + "/components/socket.component.html");
+    res.sendFile(__dirname + "/app.component.html");
 });
 // You can use io.sockets.emit/on or io.emit/on to reference server side sockets connected to all clients
 // When listening on the server side ,use (socket.on) since you're 
