@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LeaderBoardComponent } from './components/leader-board/leader-board.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SocketComponent } from './components/socket/socket.component';
+import { QuestionsComponent } from './components/questions/questions.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,12 @@ const routes: Routes = [
   {
     path: "socket",
     component: SocketComponent
+  },
+  {
+    path: "questions",
+    component: QuestionsComponent
   }
+  
 ];
 
 @NgModule({
