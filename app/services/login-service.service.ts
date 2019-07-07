@@ -1,24 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginServiceService {
 
-  httpOptions = { headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'my-auth-token'
-  })
+  url = "http://localhost:8082/users";
+
+  constructor(private http : HttpClient) { }
+
+  login() {
+    return this.http.get(this.url);
+   }
+   
+
 };
-
-url = "";
-
-login() {
- // return this.httpOptions.post(this.url + '/API/id')
-}
-
-
-
-  constructor() { }
-}

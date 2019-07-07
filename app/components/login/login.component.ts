@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginServiceService } from 'src/app/services/login-service.service';
@@ -12,6 +12,8 @@ import { LoginServiceService } from 'src/app/services/login-service.service';
 export class LoginComponent implements OnInit {
 
   modalRef: BsModalRef;
+  users : object; 
+
   constructor(private modalService: BsModalService, private LoginService: LoginServiceService) {}
  
   openModalWithClass(template: TemplateRef<any>) {
@@ -26,7 +28,10 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     console.log("Form submitted");
-    
+    this.LoginService.login().subscribe( data => {
+      this.users = data;
+      console.log(this.users);
+    })
   }
 
 }
