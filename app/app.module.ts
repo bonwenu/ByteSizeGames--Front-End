@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
+import { LoginServiceService } from './services/login-service.service';
+import { QuestionService } from './services/question.service';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,7 @@ import { HomeComponent } from './components/home/home.component';
     HttpClientModule,
     ModalModule.forRoot()
   ],
-  providers: [],
+  providers: [LoginServiceService, QuestionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
