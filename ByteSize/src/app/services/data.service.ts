@@ -10,7 +10,8 @@ export class DataService {
 
   getQuestions() {
 
-    return this.http.get("https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple")
+
+  return this.http.get("http://localhost:8082/users")
 
   }
 }
