@@ -1,0 +1,48 @@
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { LoginServiceService } from 'src/app/services/login-service.service';
+
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  modalRef: BsModalRef;
+  users : object; 
+  newUser = [];
+
+  username : string;
+  user_Pass : string;
+  user_Pass_2 : string;
+  first_Name : string;
+  last_Name : string;
+  email : string;
+  // userId: string;
+
+  constructor(private modalService: BsModalService, private LoginService: LoginServiceService) {}
+ 
+  openModalWithClass(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  ngOnInit() {
+  }
+
+  checkLogin() {
+
+  }
+
+  submitForm(username : string, user_Pass : string, user_Pass_2: string, first_Name : string, last_Name, email : string) {
+    console.log("Form submitted" + "Login.components.ts  out of sub");
+    this.LoginService.createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email);
+    console.log("Yo these null? " + username, user_Pass, user_Pass_2, first_Name, last_Name, email);
+  }
+
+}
