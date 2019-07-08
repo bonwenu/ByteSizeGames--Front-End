@@ -11,6 +11,9 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginServiceService } from './services/login-service.service';
 import { QuestionService } from './services/question.service';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { PlayComponent } from './components/play/play.component';
+import { LobbyComponent } from './components/lobby/lobby.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     LoginComponent,
     NavComponent,
     HomeComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    PlayComponent,
+    LobbyComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
