@@ -14,6 +14,13 @@ export class LoginComponent implements OnInit {
   modalRef: BsModalRef;
   users : object; 
 
+  username : string;
+  user_Pass : string;
+  user_Pass_2 : string;
+  first_Name : string;
+  last_Name : string;
+  email : string;
+
   constructor(private modalService: BsModalService, private LoginService: LoginServiceService) {}
  
   openModalWithClass(template: TemplateRef<any>) {
@@ -26,12 +33,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitForm() {
-    console.log("Form submitted");
-    this.LoginService.login().subscribe( data => {
-      this.users = data;
-      console.log(this.users);
-    })
+  doLogin(username_ : string, password_ : string) {
+    this.LoginService.checkLogin(username_, password_);
+    console.log(username_, password_);
+  }
+
+  submitForm(username : string, user_Pass : string, user_Pass_2: string, first_Name : string, last_Name, email : string) {
+    console.log("Form submitted" + "Login.components.ts  out of sub");
+    this.LoginService.createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email);
+    console.log("Yo these null? " + username, user_Pass, user_Pass_2, first_Name, last_Name, email);
   }
 
 }
