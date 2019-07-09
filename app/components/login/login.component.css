@@ -57,3 +57,8 @@ html{
     border: solid;
     border-color: rgb(48, 48, 53);
 }
+
+.input-custom {
+    border: solid;
+    border-color: red;
+}

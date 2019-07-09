@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   first_Name : string;
   last_Name : string;
   email : string;
+  add_border : string;
+  path_ : string;
 
   constructor(private modalService: BsModalService, private LoginService: LoginServiceService) {}
  
@@ -36,6 +38,13 @@ export class LoginComponent implements OnInit {
   doLogin(username_ : string, password_ : string) {
     this.LoginService.checkLogin(username_, password_);
     console.log(username_, password_);
+    let user = JSON.parse(sessionStorage.getItem("User"));
+    if (user.firstname === null || user.lastname === null) {
+    this.add_border = "input-custom";
+    //this.path_ = "/login";
+    } else {
+     // this.path_ = "/play";
+    }
   }
 
   submitForm(username : string, user_Pass : string, user_Pass_2: string, first_Name : string, last_Name, email : string) {
