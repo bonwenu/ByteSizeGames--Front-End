@@ -7,12 +7,12 @@
       <h1 class="display-4">Welcome to Falsehoods</h1>
       <p class="lead">Please enter your login credentials.</p>
       <label for="usernameInput">Enter Username</label>
-      <input type="text" class="form-control" id="usernameInput" placeholder="Username">
+      <input #l_user type="text" class="form-control {{add_border}}" id="usernameInput" placeholder="Username">
       <br>
       <label for="passwordInput">Enter Password</label>
-      <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+      <input #l_pass type="password" class="form-control {{add_border}}" id="passwordInput" placeholder="Password">
       <br>
-      <button type="button" class="btn btn-light button-custom" (click)="submitForm()">Login</button>
+      <button type="button" class="btn btn-light button-custom" (click)="doLogin(l_user.value, l_pass.value)" >Login</button>
       <br>
       <br>
       <p class="lead">No Account? Create one here!</p>
@@ -31,29 +31,29 @@
     </button>
   </div>
   <div class="modal-body modal-custom">
-    <label for="username_Input">Enter Username</label>
-      <input #username type="text" class="form-control" id="username_Input" placeholder="Username">
-      <br>
-      <label for="password_Input">Enter Password</label>
-      <input #user_Pass type="password" class="form-control" id="password_Input" placeholder="Password">
-      <br>
-      <label for="confirm_Pass_Input">Re-Enter Password</label>
-      <input #user_Pass_2 type="password" class="form-control" id="confirm_Pass_Input" placeholder="Re-Enter Password">
-      <br>
-      <label for="first_Name_Input">First Name</label>
-      <input #first_Name type="text" class="form-control" id="first_Name_Input" placeholder="First Name">
-      <br>
-      <label for="last_Name_Input">Last Name</label>
-      <input #last_Name type="text" class="form-control" id="last_Name_Input" placeholder="Last Name">
-      <br>
-      <label for="email_Input">Email</label>
-      <input #email type="email" class="form-control" id="email_Input" placeholder="Email">
-      <br>
-      <button type="button" class="btn btn-light button-custom" 
-        (click)='submitForm(username.value, user_Pass.value, user_Pass_2.value, first_Name.value, last_Name.value, email.value)' 
-        (click)="modalRef.hide()">Submit</button>
-
-  </div>
+      <label for="username_Input">Enter Username</label>
+        <input #username type="text" class="form-control" id="username_Input" placeholder="Username">
+        <br>
+        <label for="password_Input">Enter Password</label>
+        <input #user_Pass type="password" class="form-control" id="password_Input" placeholder="Password">
+        <br>
+        <label for="confirm_Pass_Input">Re-Enter Password</label>
+        <input #user_Pass_2 type="password" class="form-control" id="confirm_Pass_Input" placeholder="Re-Enter Password">
+        <br>
+        <label for="first_Name_Input">First Name</label>
+        <input #first_Name type="text" class="form-control" id="first_Name_Input" placeholder="First Name">
+        <br>
+        <label for="last_Name_Input">Last Name</label>
+        <input #last_Name type="text" class="form-control" id="last_Name_Input" placeholder="Last Name">
+        <br>
+        <label for="email_Input">Email</label>
+        <input #email type="email" class="form-control" id="email_Input" placeholder="Email">
+        <br>
+        <button type="button" class="btn btn-light button-custom" 
+          (click)='submitForm(username.value, user_Pass.value, user_Pass_2.value, first_Name.value, last_Name.value, email.value)' 
+          (click)="modalRef.hide()">Submit</button>
+  
+    </div>
 </ng-template>
     
 

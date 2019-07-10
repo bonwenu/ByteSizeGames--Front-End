@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { Observable, concat } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginComponent } from '../components/login/login.component';
 
@@ -21,25 +21,28 @@ export class LoginServiceService {
 
   login() {
     let url = "http://localhost:8082/users";
+    console.log("this is login");
     return this.http.get(url);
    }
 
-   submitUserForm(username, user_Pass, user_Pass_2, first_Name, last_Name, email) {
-    console.log("Form submitted");
-    this.login().subscribe( data => {
-      console.log("NOTICE ME SENPIA" + username, user_Pass, user_Pass_2, first_Name, last_Name, email);
-    })
-    return concat(username ,user_Pass, user_Pass_2, first_Name, last_Name, email);
+   checkLogin(l_user : string, l_pass : string){
+     let url = "http://localhost:8082/login";
+     console.log("Posty Post: " + l_user, l_pass);
+     this.http.post(url, {"username" : l_user, "password" : l_pass}).subscribe( data => sessionStorage.setItem("User", JSON.stringify(data)));
+    
+   }
 
-  }
+   deleteSession(){
+    let url = "http://localhost:8082/users";
+     this.http.get(url);
+     sessionStorage.clear();
+   }
 
   // Attempt #567
   createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email){
-    let url = "http://localhost:8082/login";
+    let url = "http://localhost:8082/users";
     console.log("We be postin stuff");
     return this.http.post(url, {"firstName" : first_Name,  "lastName" : last_Name, "username" : username, "password" : user_Pass, "email" : email}).subscribe( data => {console.log("POST sent");})
   }
-
-   
 
 };

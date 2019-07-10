@@ -16,6 +16,10 @@ html{
     border-color: rgb(48, 48, 53);
 }
 
+.bg-fill{
+    background: 100%;
+    background-color: rgb(158, 210, 240);
+}
 .container-border {
     background-color:  rgb(48, 48, 53);
     height: 5px;
@@ -23,7 +27,7 @@ html{
 
 .container1-custom {
     background-color: rgb(158, 210, 240);
-    height: 100px;
+    height: 50px;
 }
 
 .container2-custom {
@@ -37,28 +41,15 @@ html{
 
 .button-custom {
     border: solid;
-    border-color: rgb(255, 174, 0);
     border-radius: 6px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 25px;
-    margin: 10px;
-}
-
-.jumbo-nomarg {
-    /* background: linear-gradient(rgb(158, 210, 240) 0%,rgb(158, 210, 240) 50%,rgb(188, 166, 228) 50%,rgb(188, 166, 228) 100%); */
-    background-color:  rgb(224, 239, 241);
-    border: solid;
-    border-color: rgb(48, 48, 53);
-    margin: 0px;
+    background-color: rgb(234, 242, 243);
+    margin: 25px;
 }
 
 .modal-custom {
     background-color:  rgb(224, 239, 241);
     border: solid;
     border-color: rgb(48, 48, 53);
-}
-
-.input-custom {
-    border: solid;
-    border-color: red;
 }
