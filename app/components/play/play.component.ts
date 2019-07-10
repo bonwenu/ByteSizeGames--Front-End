@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-play',
@@ -17,8 +19,11 @@ export class PlayComponent implements OnInit {
   gc4: number;
   gc5: number;
 
+  // Set this url to the correct server side url
+  url: string;
 
-  constructor(private modalService: BsModalService) { }
+
+  constructor(private modalService: BsModalService, private http : HttpClient) { }
 
   openModalWithClass(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
@@ -35,6 +40,9 @@ export class PlayComponent implements OnInit {
     this.gc5 = Math.floor(Math.random() * 9) + 1;    
     this.gameCode = String(this.gc1) + String(this.gc2) + String(this.gc3) + String(this.gc4) + String(this.gc5);
     console.log(this.gameCode);
+   // Throws -- ERROR TypeError: Cannot read property 'toLowerCase' of undefined
+    // return this.http.post(this.url, {"HostToken" : this.gameCode}).subscribe( data => sessionStorage.setItem("HostToken", JSON.stringify(data)));
+
   }
 
 

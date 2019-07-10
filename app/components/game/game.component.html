@@ -5,35 +5,30 @@
     <h1>{{q_.question}}</h1>
     <hr>
     <h3>{{q_.correct_answer}}</h3>
+    <br>
+    <hr>
+    <h3>{{counter}}</h3>
+    <br>
+      <button class="btn btn-light button-custom" type="button" *ngIf="show" (click)="openModalWithClass(template)">Create Answer</button>
+      <br>
+      <hr>
+      <h3 *ngIf="show_answer">{{user_answer}}</h3>
       </div>
+
+      
 
       <ng-template id="tempID" #template>
           <div class="modal-header modal-custom">
-            <h4 class="modal-title pull-left">Create Account</h4>
+            <h4 class="modal-title pull-left">Enter Your Answer</h4>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body modal-custom">
-            <label for="username_Input">Enter Username</label>
-              <input type="text" class="form-control" id="username_Input" placeholder="Username">
+            <label for="answer_Input">Enter Your Answer</label>
+              <input #answer_ type="text" class="form-control" id="answer_Input" placeholder="Answer">
               <br>
-              <label for="password_Input">Enter Password</label>
-              <input type="password" class="form-control" id="password_Input" placeholder="Password">
-              <br>
-              <label for="confirm_Pass_Input">Re-Enter Password</label>
-              <input type="password" class="form-control" id="confirm_Pass_Input" placeholder="Re-Enter Password">
-              <br>
-              <label for="first_Name_Input">First Name</label>
-              <input type="text" class="form-control" id="first_Name_Input" placeholder="First Name">
-              <br>
-              <label for="last_Name_Input">Last Name</label>
-              <input type="text" class="form-control" id="last_Name_Input" placeholder="Last Name">
-              <br>
-              <label for="email_Input">Email</label>
-              <input type="email" class="form-control" id="email_Input" placeholder="Email">
-              <br>
-              <button type="button" class="btn btn-light button-custom" (click)='generateGC()'>Submit</button>
+              <button type="button" class="btn btn-light button-custom" (click)="getAnswer(answer_.value)" (click)="modalRef.hide()">Submit</button>
           </div>
         </ng-template>
       

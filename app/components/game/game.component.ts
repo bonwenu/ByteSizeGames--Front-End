@@ -6,6 +6,7 @@ import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -33,12 +34,21 @@ export class GameComponent implements OnInit {
   difficulty: "",
   question: "",
   correctAnswer: ""};
-  temp = document.getElementById("tempID");
+
+  counter = 5;
+  round = 0;
+  show : boolean = false;
+  show_answer : boolean = false;
+  user_answer : string;
+
+  
+
 
   constructor(private modalService: BsModalService, private questionService: QuestionService) { }
 
   ngOnInit() {
     this.getQuestions();
+    this.timer();
 
   }
 
@@ -53,6 +63,26 @@ export class GameComponent implements OnInit {
     setTimeout(function() {this.openModalWithClass(temp)}, 10000);
   }
 
+  timer() {
+        let intervalId = setInterval(() => {
+            this.counter = this.counter - 1;
+            console.log(this.counter)
+            if(this.counter === 0 && this.round === 0) {
+              //clearInterval(intervalId)
+              this.show = !this.show;
+              this.counter = 15;
+              this.round++;
+            } else if (this.counter === 0 && this.round === 1){
+              clearInterval(intervalId)
+              this.show_answer = !this.show_answer;
+              this.show = !this.show;
+            }
+        }, 1000)
+    }
+
+  getAnswer(answer_ : string) {
+    this.user_answer = answer_;
+  }
 
   getQuestions() {
     this.questionService.getQuestion()
