@@ -25,7 +25,13 @@ const routes: Routes = [ {
 }, {
   path: 'game',
   component: GameComponent
-}];
+}, {
+  path: '',
+  pathMatch: 'full',
+  redirectTo: 'home'
+}
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

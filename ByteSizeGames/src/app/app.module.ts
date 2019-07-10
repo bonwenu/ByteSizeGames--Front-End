@@ -15,6 +15,16 @@ import { PlayComponent } from './components/play/play.component';
 import { LobbyComponent } from './components/lobby/lobby.component';
 import { GameComponent } from './components/game/game.component';
 
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GetCategoryService } from './services/get-category.service';
+
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +40,17 @@ import { GameComponent } from './components/game/game.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ModalModule.forRoot()
+
+    FormsModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+
+    ModalModule.forRoot(),
+
+    ButtonsModule.forRoot()
   ],
-  providers: [LoginServiceService, QuestionService],
+  providers: [LoginServiceService, QuestionService, GetCategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

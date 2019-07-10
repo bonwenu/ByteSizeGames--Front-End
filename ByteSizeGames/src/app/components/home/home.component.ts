@@ -1,48 +1,55 @@
 import { Component, OnInit } from '@angular/core';
+import { GetCategoryService } from 'src/app/services/get-category.service';
 import { QuestionService } from 'src/app/services/question.service';
-import { Question } from 'src/app/models/Question';
-import { Result } from 'src/app/models/Question';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+    
+  gameListArray = [];
 
-  res_ : Result[] = [{  
-    category: "",
-    type: "",
-    difficulty: "",
-    question: "",
-    correctAnswer: ""}];
+  categories_array = [];
+  chosenCategory: number = 0;
+  difficulty_array = ["any", "easy", "medium", "hard"];
+  chosenDifficulty: string = "any";
+
+  constructor(private getCatService: GetCategoryService, private questionService: QuestionService) {
+  }
+
+  sendQuestionInfoToService(): void {
+    console.log("inside send");
+    console.log(this.chosenCategory);
+    console.log(this.chosenDifficulty);
+    this.questionService.setQuestionInfo(this.chosenCategory, this.chosenDifficulty);
+  }
 
   
-  question_: Question = {results: this.res_};
 
-  questions_: Question[] = [];
-
-  q_ : Result = { category: "",
-  type: "",
-  difficulty: "",
-  question: "",
-  correctAnswer: ""};
-
-  constructor(private questionService: QuestionService) { }
 
   ngOnInit() {
+    this.getCategories();
   }
 
-  getQuestions() {
-    this.questionService.getQuestion()
-     .then((all_Questions)=>{
-      console.log(all_Questions.results[3]);
-      this.question_ = all_Questions[0];
-      console.log(all_Questions);
-      this.q_ = all_Questions.results[3];
-      console.log(this.q_);
+  getCategories() {
+    this.getCatService.getCategoryList(). then((all_categories) => {
+      this.categories_array = all_categories.trivia_categories;
+      console.log("Category array is " + this.categories_array);
     })
-
   }
+
+  // Debug function
+  showChosenCategoryLog() {
+    console.log("this is the chosenCategory " +  this.chosenCategory);
+  }
+
+  // Debug function
+  showChosenDifficultyLog() {
+    console.log("this is the chosenDifficulty " + this.chosenDifficulty);
+  }
+
 
 }

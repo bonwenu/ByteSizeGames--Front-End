@@ -7,5 +7,6 @@ export interface Result {
     type: string,
     difficulty: string,
     question: string,
-    correctAnswer: string
+    correct_answer: string,
+    incorrect_answers: []
 }
