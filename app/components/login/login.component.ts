@@ -68,17 +68,12 @@ export class LoginComponent implements OnInit {
 
 
     }
- 
-    
-  
+    });
   }
-    
-    
-    
-    );  
-
- 
-   
+  submitForm(username : string, user_Pass : string, user_Pass_2: string, first_Name : string, last_Name, email : string) {
+    console.log("Form submitted" + "Login.components.ts  out of sub");
+    this.LoginService.createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email);
+    console.log("Yo these null? " + username, user_Pass, user_Pass_2, first_Name, last_Name, email);
   }
   
    

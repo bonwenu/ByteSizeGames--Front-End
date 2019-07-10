@@ -4,6 +4,8 @@ import { Question } from 'src/app/models/Question';
 import { Result } from 'src/app/models/Question';
 import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ElementRef, ViewChild } from '@angular/core';
+import * as socketIO from "socket.io-client";
 
 
 
@@ -13,6 +15,17 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
+
+  @ViewChild("message", {static: false})  message: ElementRef;
+  
+  @ViewChild("chat", {static: false})  chat: ElementRef;
+  @ViewChild("username", {static: false})  username: ElementRef;
+  @ViewChild("send", {static: false})  send_Btn: ElementRef;
+  @ViewChild("output", {static: false})  output: ElementRef;
+  @ViewChild("feedback", {static: false})  feedback: ElementRef;
+  
+  private socket: any;
+  title = 'ByteSizeGames';
 
   res_ : Result[] = [{  
     category: "",
@@ -40,7 +53,8 @@ export class GameComponent implements OnInit {
   show : boolean = false;
   show_answer : boolean = false;
   user_answer : string;
-
+  answers : string[];
+ 
   
 
 
@@ -49,7 +63,34 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.getQuestions();
     this.timer();
+    this.socket = socketIO('http://localhost:3000');
+  }
 
+  public ngAfterViewInit() { 
+
+    // Listen for events
+    this.socket.on('chat', (data) => {
+    this.feedback.nativeElement.innerHTML = '';
+    this.user_answer = this.output.nativeElement.innerHTML += data.msg + "_$%";
+    });
+ 
+    this.socket.on('typing', (data) => {
+      this.feedback.nativeElement.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
+    });
+
+  }
+
+  isTyping() {
+      this.socket.emit('typing', this.username.nativeElement.value);
+      
+  }
+
+  sendMsg(){
+    this.socket.emit('chat', 
+      {msg: this.message.nativeElement.value, 
+        username: this.username.nativeElement.value
+      });
+    this.message.nativeElement.value = "";
   }
 
   openModalWithClass(template: TemplateRef<any>) {
@@ -76,9 +117,15 @@ export class GameComponent implements OnInit {
               clearInterval(intervalId)
               this.show_answer = !this.show_answer;
               this.show = !this.show;
+              this.answers = this.user_answer.split("_$%");
+              console.log(this.answers);
             }
         }, 1000)
     }
+
+  saveAnswer() {
+    console.log("saveAnswer is running");
+  }
 
   getAnswer(answer_ : string) {
     this.user_answer = answer_;
