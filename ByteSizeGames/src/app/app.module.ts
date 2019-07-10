@@ -22,6 +22,7 @@ import { GetCategoryService } from './services/get-category.service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 
 
@@ -48,7 +49,9 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
     ModalModule.forRoot(),
 
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+
+    ProgressbarModule.forRoot()
   ],
   providers: [LoginServiceService, QuestionService, GetCategoryService],
   bootstrap: [AppComponent]

@@ -2,11 +2,18 @@ import { Component, OnInit, Input } from "@angular/core";
 import { QuestionService } from "src/app/services/question.service";
 import { Result } from "src/app/models/Question";
 import { BsModalService } from "ngx-bootstrap/modal";
+import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
+
+
+export function getProgressbarConfig(): ProgressbarConfig {
+  return Object.assign(new ProgressbarConfig(), { animate: true, striped: true, max: 60});
+}
 
 @Component({
   selector: "app-game",
   templateUrl: "./game.component.html",
-  styleUrls: ["./game.component.css"]
+  styleUrls: ["./game.component.css"],
+  providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }]
 })
 export class GameComponent implements OnInit {
   q_: Result = {
@@ -26,7 +33,10 @@ export class GameComponent implements OnInit {
     this.timer();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.counter = 60;
+    this.progressBarType = "";
+  }
 
   incorrectAnswersArray = [];
 
@@ -47,10 +57,10 @@ export class GameComponent implements OnInit {
       this.q_ = all_Questions.results[0];
       console.log("below should be the question object");
       console.log(this.q_);
-
       console.log("debugging");
       console.log("category " + all_Questions.results[0].category);
       console.log("Correct answer " + all_Questions.results[0].correct_answer);
+      this.correctAnswer = all_Questions.results[0].correct_answer;
       console.log("Incorrect answers " + all_Questions.results[0].incorrect_answers);
       this.incorrectAnswersArray = all_Questions.results[0].incorrect_answers;
       //console.log("incorrect_answer " + this.incorrectAnswersArray);
@@ -82,6 +92,8 @@ export class GameComponent implements OnInit {
     {'font-size': '2vh', 'color': 'darkviolet', 'font-weight': '500'}
   ]
 
+  progressBarClass = "progress-bar progress-bar-striped progress-bar-animated active";
+ 
   changeClass(i) {
     this.bntClass[i] = 'btn btn-primary btn-block';
   }
@@ -90,40 +102,57 @@ export class GameComponent implements OnInit {
     this.bntStyle[i] = {'font-size': '2vh', 'color': 'black', 'font-weight': 'bold'};
   }
 
-  checkAnswer(i) {
-    console.log("what is the value here " + i);
-    // for(let index in this.incorrectAnswersArray) {
-    //   if( i == index )
-    // }
-  }
-  
-
-  
-  counter = 5;
-  round = 0;
-  show : boolean = false;
-  show_answer : boolean = false;
-  user_answer : string;
+  counter: number;
+  correctAnswer: string;
+  reply: string;
+  progressBarType: string = "";
+  show: boolean = false;
+  counterReachesZero = true;
 
   timer() {
     let intervalId = setInterval(() => {
       this.counter = this.counter - 1;
+      //console.log("progress bar value here " + this.progressBarValue[0].value + this.progressBarValue[0].type)
+
+      if(this.counter <= 15) {
+        this.progressBarType = 'danger';
+        Object.assign(new ProgressbarConfig(), { animate: true, striped: true, max: 60, type: "danger"});
+        //getProgressbarConfig(this.progressBarType);
+
+        //console.log("type is " + this.progressBarType);
+        //this.progressBarClass = "progress-bar progress-bar-striped progress-bar-animated bg-warning active";
+      } else if(this.counter <= 30) {
+        this.progressBarType = 'warning';
+        Object.assign(new ProgressbarConfig(), {animate: true, striped: true, max: 60, type: "warning"});
+        //getProgressbarConfig(this.progressBarType);
+
+        //console.log("type is " + this.progressBarType);
+        //this.progressBarClass = "progress-bar progress-bar-striped progress-bar-animated bg-danger active";
+      } 
       console.log(this.counter);
-      if (this.counter === 0 && this.round === 0) {
-        //clearInterval(intervalId)
+
+      if(this.counter == 0) {
         this.show = !this.show;
-        this.counter = 15;
-        this.round++;
-      } else if (this.counter === 0 && this.round === 1) {
+        this.disabled = true;
+        this.counterReachesZero = false;
         clearInterval(intervalId);
-        this.show_answer = !this.show_answer;
-        this.show = !this.show;
       }
     }, 1000);
   }
 
-  getAnswer(answer_: string) {
-    this.user_answer = answer_;
+
+  checkAnswer(i) {
+    let x: number;
+    console.log("what is the value here " + i);
+    x = this.incorrectAnswersArray.indexOf(this.correctAnswer);
+    console.log(this.incorrectAnswersArray.indexOf(this.correctAnswer));
+    if( i == x ) {
+      console.log('you guessed right');
+      this.reply = 'You Guessed Right.';
+    } else {
+      console.log('you guess wrong');
+      this.reply = 'You Guessed Wrong. Answer Is:';
+    }
   }
 
 }

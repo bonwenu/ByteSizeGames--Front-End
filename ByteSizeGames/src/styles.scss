@@ -1,9 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/scss/bootstrap';
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~bootstrap/scss/bootstrap";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 //@import './src/app/styles/home.scss';
 //@import './src/app/styles/material.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-image: linear-gradient(
+    to left bottom,
+    #d16ba5,
+    #c777b9,
+    #ba83ca,
+    #aa8fd8,
+    #9a9ae1,
+    #8aa7ec,
+    #79b3f4,
+    #69bff8,
+    #52cffe,
+    #41dfff,
+    #46eefa,
+    #5ffbf1
+  );
+}

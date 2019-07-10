@@ -1,27 +1,46 @@
-<div class="container-fluid container1-custom">
-</div>
+<div class="container-fluid question-custom">
 
-<div class="container-fluid container-twotone">
-  <h1 [innerHTML]="q_.question"></h1>
+  <div class="container-fluid" style="background:transparent;">
+    <h1 [innerHTML]="q_.question" style="background:transparent;margin-top: 1rem"></h1>
 
-  <br>
-  <br>
-  <div class="div-choices">
-    <span *ngFor="let ans of incorrectAnswersArray; let i = index">
-      <button type="button" [ngClass]="[bntClass[i]]" 
-      (click)="disableAll(); changeStyle(i); changeClass(i); checkAnswer(ans)" 
-      [disabled]="disabled"
-      [innerHTML]="ans" [ngStyle]="bntStyle[i]"></button>
+    <br>
+    <br>
+    <div style="background:transparent;" class="mb-2">
+      <progressbar class="progressBarClass" style="background:transparent; height: 1rem;" 
+      [value]="counter" type={{progressBarType}} > <span *ngIf="counterReachesZero" >{{counter}}</span>
+      </progressbar>
+    </div>
+
+   
+    <br>
+
+    <div class="div-choices" style="background:transparent;">
+      <span *ngFor="let ans of incorrectAnswersArray; let i = index">
+        <button type="button" [ngClass]="[bntClass[i]]"
+          (click)="disableAll(); changeStyle(i); changeClass(i); checkAnswer(i)" 
+          [disabled]="disabled" [innerHTML]="ans"
+          [ngStyle]="bntStyle[i]"></button>
+      </span>
+    </div>
+
+
+    <br>
+    <br>
+    <span *ngIf="show">
+      <h3>{{reply}}</h3>
+      <h3 style="color: red" [innerHTML]="correctAnswer"></h3>
     </span>
+
+
   </div>
+
 </div>
 
-<div class="container-fluid container2-custom">
-  <h3>{{counter}}</h3>
+<!-- <div class="container-fluid container2-custom">
   <br>
-  <button class="btn btn-light button-custom" type="button" *ngIf="show" (click)="openModalWithClass(template)">Create
-    Answer</button>
+  <button class="btn btn-light button-custom" type="button" *ngIf="show" 
+  (click)="openModalWithClass(template)">{answer}</button>
   <br>
   <hr>
   <h3 *ngIf="show_answer">{{user_answer}}</h3>
-</div>
+</div> -->
