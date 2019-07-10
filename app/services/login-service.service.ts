@@ -32,11 +32,6 @@ export class LoginServiceService {
     
    }
 
-   deleteSession(){
-    let url = "http://localhost:8082/users";
-     this.http.get(url);
-     sessionStorage.clear();
-   }
 
   // Attempt #567
   createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email){
