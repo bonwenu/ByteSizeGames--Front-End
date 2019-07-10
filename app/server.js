@@ -5,54 +5,48 @@ var io = require ("socket.io").listen(server);
 
 let users = [];
 let connections = [];
-// Select port
+
 server.listen(process.env.PORT || 3000);
 console.log("Server running...");
 
-// Direct to static file in
 app.get("/", function(req, res){
-    res.sendFile(__dirname + "/app.component.html");
+    res.sendFile(__dirname + "/components/chat-demo/chat-demo.component.html");
 });
-// You can use io.sockets.emit/on or io.emit/on to reference server side sockets connected to all clients
-// When listening on the server side ,use (socket.on) since you're 
-// only listening to one client/socket for a response
 
-// When sockets are connected, listen or send these
 io.sockets.on("connection", function(socket){
     connections.push(socket);
     console.log("Connected: %s sockets connected", connections.length);
-    
-    // Direction/Button pressed
-	socket.on("move", function(data) {
-        console.log("Data is " + data);
-        switch(data) {
-            case "left":
-                console.log("left");
-                io.sockets.emit("printDirection", data);
-                break;
-            case "right":
-                console.log("right");
-                io.sockets.emit("printDirection", data);
-                break;
-            case "up":
-                console.log("up");
-                io.sockets.emit("printDirection", data);
-                break;
-            case "down":
-                console.log("down");
-                io.sockets.emit("printDirection", data);
-                break;
-        }
-    });
 
 
     // Disconnect
     socket.on("disconnect", function(data) {
-        connections.splice(connections.indexOf(socket), 1);
+        
+        users.splice(users.indexOf(socket.username), 1);
+        updateUsernames();
+        //connections.splice(connections.indexOf(socket), 1);
+        connections.pop(socket);
         console.log("Disconnected: %s sockets connected", connections.length);
+
     });
     
+
+    // Handle chat event
+    socket.on('chat', function(data){
+        // console.log(data);
+        io.sockets.emit('chat', data);
+    });
+
+    // Handle typing event
+    socket.on('typing', function(data){
+        socket.broadcast.emit('typing', data);
+    });
+
+    function updateUsernames() {
+        io.sockets.emit("get users", users);
+    }
+
+    socket.on("hello", function(data) {
+        console.log(data);
+        
+    });
 });
-
-
-
