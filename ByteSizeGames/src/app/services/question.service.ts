@@ -2,10 +2,6 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Question, Result } from "src/app/models/Question";
 
-import { HomeComponent } from "src/app/components/home/home.component";
-import { Observable, Subject, BehaviorSubject } from "rxjs";
-import { getQueryPredicate } from "@angular/compiler/src/render3/view/util";
-
 @Injectable({
   providedIn: "root"
 })
@@ -72,8 +68,6 @@ export class QuestionService implements OnInit {
       //resolve();
     //});
   }
-
-  //url: string = 'https://opentdb.com/api.php?amount=1'
 
   constructor(private http: HttpClient) {}
 

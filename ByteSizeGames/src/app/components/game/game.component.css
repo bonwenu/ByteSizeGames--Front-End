@@ -70,6 +70,16 @@ h3 {
   margin-top: 2rem;
 }
 
+.btn-primary {
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-top: 2rem;
+  color: red;
+  font-weight: bold;
+}
+
 .div-choices {
     font-family: 'Literata', serif;
     font-size: x-large;

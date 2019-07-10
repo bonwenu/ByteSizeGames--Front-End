@@ -1,20 +1,27 @@
 <div class="container-fluid container1-custom">
-  </div>
+</div>
 
-  <div class="container-fluid container-twotone">
-    <h1 [innerHTML]="q_.question"></h1>
+<div class="container-fluid container-twotone">
+  <h1 [innerHTML]="q_.question"></h1>
 
-    <br>
-    <br>
-    <div class="div-choices">
-      <span *ngFor="let ans of incorrectAnswersArray">
-        <button type="button" class="btn btn-outline-secondary btn-block" routerLink="." [innerHTML]="ans"
-          style="font-size: 2vh; color: darkviolet; font-weight: 500"></button>
-      </span>
-    </div>
+  <br>
+  <br>
+  <div class="div-choices">
+    <span *ngFor="let ans of incorrectAnswersArray; let i = index">
+      <button type="button" [ngClass]="[bntClass[i]]" 
+      (click)="disableAll(); changeStyle(i); changeClass(i); checkAnswer(ans)" 
+      [disabled]="disabled"
+      [innerHTML]="ans" [ngStyle]="bntStyle[i]"></button>
+    </span>
   </div>
+</div>
 
 <div class="container-fluid container2-custom">
-  </div>
-  
-
+  <h3>{{counter}}</h3>
+  <br>
+  <button class="btn btn-light button-custom" type="button" *ngIf="show" (click)="openModalWithClass(template)">Create
+    Answer</button>
+  <br>
+  <hr>
+  <h3 *ngIf="show_answer">{{user_answer}}</h3>
+</div>

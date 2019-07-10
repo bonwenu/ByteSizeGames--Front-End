@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetCategoryService } from 'src/app/services/get-category.service';
 import { QuestionService } from 'src/app/services/question.service';
+import { Result } from 'src/app/models/Question';
 
 
 @Component({
@@ -10,12 +11,32 @@ import { QuestionService } from 'src/app/services/question.service';
 })
 export class HomeComponent implements OnInit {
     
-  gameListArray = [];
-
   categories_array = [];
   chosenCategory: number = 0;
   difficulty_array = ["any", "easy", "medium", "hard"];
   chosenDifficulty: string = "any";
+
+  q_: Result = {
+    category: "",
+    type: "",
+    difficulty: "",
+    question: "",
+    correct_answer: "",
+    incorrect_answers: []
+  };
+
+
+  // getQuestion() {
+  //   this.questionService.getQuestion().then(all_Questions => {
+
+  //     this.q_ = all_Questions.results[0];
+
+  //     this.incorrectAnswersArray = all_Questions.results[0].incorrect_answers;
+  //     this.incorrectAnswersArray.push(all_Questions.results[0].correct_answer);
+  //     this.fisherYates(this.incorrectAnswersArray);
+
+  //   });
+  // }
 
   constructor(private getCatService: GetCategoryService, private questionService: QuestionService) {
   }
@@ -26,8 +47,6 @@ export class HomeComponent implements OnInit {
     console.log(this.chosenDifficulty);
     this.questionService.setQuestionInfo(this.chosenCategory, this.chosenDifficulty);
   }
-
-  
 
 
   ngOnInit() {
