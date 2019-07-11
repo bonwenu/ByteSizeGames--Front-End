@@ -47,6 +47,28 @@ export class PlayComponent implements OnInit {
 
 
   ngOnInit() {
+    this.getToken();
   }
+
+  getTokens(){
+    let url = "http://ec2-3-19-30-93.us-east-2.compute.amazonaws.com:8082/token";
+    this.http.get(url).subscribe(data =>{
+      console.log(data);
+    })
+  }
+
+
+  getToken(){
+    if(sessionStorage.getItem("token") === null){
+      let url ="http://ec2-3-19-30-93.us-east-2.compute.amazonaws.com:8082/token";
+      let user = JSON.parse(sessionStorage.getItem("User"));
+      console.log(user.userId);
+      this.http.post(url, user.userId).subscribe(data =>{
+        console.log(data);
+        //logic for gettin that token shit
+      });
+    }
+  }
+
 
 }

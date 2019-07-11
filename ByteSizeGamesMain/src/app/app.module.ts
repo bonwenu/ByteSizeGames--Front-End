@@ -20,6 +20,7 @@ import { QuestionsComponent } from './components/questions/questions.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginSignupComponent } from './components/login-signup/login-signup.component';
 import { LeaderBoardComponent } from './components/leader-board/leader-board.component';
+import { ChatDemoComponent } from './components/chat-demo/chat-demo.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +32,13 @@ import { LeaderBoardComponent } from './components/leader-board/leader-board.com
     PlayComponent,
     LobbyComponent,
     GameComponent,
-    UserProfilePageComponent,
+	UserProfilePageComponent,
     SocketComponent,
     QuestionsComponent,
     ProfileComponent,
     LoginSignupComponent,
-    LeaderBoardComponent
+    LeaderBoardComponent,
+    ChatDemoComponent
   ],
   imports: [
     BrowserModule,

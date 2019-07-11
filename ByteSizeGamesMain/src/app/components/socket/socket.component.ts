@@ -9,7 +9,7 @@ import * as socketIO from "socket.io-client";
 export class SocketComponent implements OnInit {
 
   // Equivalent of document.getElementById
- // Include {static: false}) if using angular 8+
+ 
   @ViewChild("direction") private direct: ElementRef;
   @ViewChild("hi") private hello: ElementRef;
 
@@ -21,9 +21,6 @@ export class SocketComponent implements OnInit {
   ngOnInit(){
 
     this.socket = socketIO('http://localhost:3000');
-
-    // After game is finish, use following instead
-    //http://ec2-3-19-30-93.us-east-2.compute.amazonaws.com:3000
     //this.socket.on("hello", (data) => console.log(data.msg));
 
   }

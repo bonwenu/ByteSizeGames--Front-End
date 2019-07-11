@@ -3,7 +3,11 @@ import { TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginServiceService } from 'src/app/services/login-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { async } from 'q';
+import { async, timeout } from 'q';
+import { timer } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { User } from 'src/app/models/User';
+
 
 
 @Component({
@@ -24,9 +28,12 @@ export class LoginComponent implements OnInit {
   email : string;
   add_border : string;
   path_ : string;
+  //user;
+  
+  counter = 5;
 
   constructor(private modalService: BsModalService, private LoginService: LoginServiceService, private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute, private http : HttpClient) {}
  
   openModalWithClass(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
@@ -36,41 +43,43 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
-  // must click login button twice for some reason, not sure
-  doLogin(username_ : string, password_ : string) {
-    this.LoginService.checkLogin(username_, password_);
+
+
+
+   doLogin(username_ : string, password_ : string){
+    let url = "http://ec2-3-19-30-93.us-east-2.compute.amazonaws.com:8082/login";
+    this.http.post(url, {"username" : username_, "password" : password_}).subscribe(data => {
+    sessionStorage.setItem("User", JSON.stringify(data));
     let user = JSON.parse(sessionStorage.getItem("User"));
-    console.log("Outside if user info:" + user.firstName);
-    if (user === null || user.firstName === null || user.lastName === null) {
-      console.log("This should be called when the null is true");
-      console.log(user);
-      this.add_border = "input-custom";
-      sessionStorage.clear();
-
-      console.log("INSIDE IF");
-
-      } 
-      else {
-        console.log("This should be called when you actually have a acutal user");
-        this.path_ = '/play';
-        console.log(this.path_);
-        this.router.navigateByUrl('/play');
-
+    if (user === null || user.firstName === null ||user.lastName === null) {
+      sessionStorage.removeItem("User");
+      this.path_ = '/login';
+      console.log(sessionStorage.length)
+      window.sessionStorage.clear();
+      localStorage.clear();
       }
-    // console.log(username_, password_);
-  }
+    else{
+      this.path_ = '/play';
+      console.log(this.path_);
+      this.router.navigateByUrl('/play');
 
+
+    }
+    });
+  }
   submitForm(username : string, user_Pass : string, user_Pass_2: string, first_Name : string, last_Name, email : string) {
-    // console.log("Form submitted" + "Login.components.ts  out of sub");
+    console.log("Form submitted" + "Login.components.ts  out of sub");
     this.LoginService.createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email);
-    // console.log("Yo these null? " + username, user_Pass, user_Pass_2, first_Name, last_Name, email);
-
+    console.log("Yo these null? " + username, user_Pass, user_Pass_2, first_Name, last_Name, email);
   }
-
-  calledFromServiceService(s:String){
-    console.log(s);
-  }
-
+  
+   
+  
 }
+
+  
+
+
