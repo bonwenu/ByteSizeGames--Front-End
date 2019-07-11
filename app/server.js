@@ -10,12 +10,13 @@ server.listen(process.env.PORT || 3000);
 console.log("Server running...");
 
 app.get("/", function(req, res){
-    res.sendFile(__dirname + "/components/chat-demo/chat-demo.component.html");
+    res.sendFile(__dirname + "/components/chat-demo/game.component.html");
 });
 
 io.sockets.on("connection", function(socket){
     connections.push(socket);
     console.log("Connected: %s sockets connected", connections.length);
+    });
 
 
     // Disconnect
@@ -28,13 +29,25 @@ io.sockets.on("connection", function(socket){
         console.log("Disconnected: %s sockets connected", connections.length);
 
     });
+
+    socket.on('countdown', function(data){
+        console.log("Countdown Data: " + data);
+        io.sockets.emit('countdown', data);
+    });
     
 
     // Handle chat event
     socket.on('chat', function(data){
         // console.log(data);
+        console.log("Chattttttt");
         io.sockets.emit('chat', data);
     });
+
+    socket.on('displayQuestion', function(data){
+        console.log("Displaying Data from Server.js: " + data);
+        io.sockets.emit('displayQuestion', data);
+    });
+
 
     // Handle typing event
     socket.on('typing', function(data){
@@ -43,10 +56,9 @@ io.sockets.on("connection", function(socket){
 
     function updateUsernames() {
         io.sockets.emit("get users", users);
-    }
+    };
 
     socket.on("hello", function(data) {
         console.log(data);
         
     });
-});

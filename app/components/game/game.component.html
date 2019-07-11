@@ -7,9 +7,17 @@
   <h3>{{q_.correct_answer}}</h3>
   <br>
   <hr>
+  <div #questionDisplay></div>
+  <div #feedback></div>
+  <button class="btn btn-light" (click) = displayQuestion() >Start</button>
+  <br>
+  <hr>
+  <hr>
   <div class="row justify-content-md-center">
   <div class="col col-lg-2">
-  <h3>{{counter}}</h3>
+  <!-- <h3>{{counter}}</h3> -->
+  <h3 #countOutput></h3>
+  <button class="btn btn-light" (click)=countdown()>Countdown Start</button>
   </div>
   </div>
   <br>
