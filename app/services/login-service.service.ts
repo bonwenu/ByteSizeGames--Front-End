@@ -9,7 +9,6 @@ import { LoginComponent } from '../components/login/login.component';
 })
 export class LoginServiceService {
 
-  // url = "http://localhost:8082/users";
 
   constructor(private http : HttpClient) { }
 
@@ -19,19 +18,20 @@ export class LoginServiceService {
   first_Name : string;
   last_Name : string;
   email : string;
-  add_border : string;
 
   login() {
     let url = "http://localhost:8082/users";
+    console.log("this is login");
     return this.http.get(url);
    }
 
    checkLogin(l_user : string, l_pass : string){
      let url = "http://localhost:8082/login";
      console.log("Posty Post: " + l_user, l_pass);
-     return this.http.post(url, {"username" : l_user, "password" : l_pass}).subscribe( data => sessionStorage.setItem("User", JSON.stringify(data)));
-
+     this.http.post(url, {"username" : l_user, "password" : l_pass}).subscribe( data => sessionStorage.setItem("User", JSON.stringify(data)));
+    
    }
+
 
   // Attempt #567
   createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email){
@@ -40,4 +40,4 @@ export class LoginServiceService {
     return this.http.post(url, {"firstName" : first_Name,  "lastName" : last_Name, "username" : username, "password" : user_Pass, "email" : email}).subscribe( data => {console.log("POST sent");})
   }
 
-}
+};

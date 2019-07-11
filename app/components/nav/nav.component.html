@@ -12,13 +12,10 @@
           <button type="button" class="btn btn-light button-custom" routerLink='/login'>Login</button>
         </li>
         <li class="nav-item">
-          <button type="button" class="btn btn-light button-custom" routerLink='/leaderboard' (click)="getLeaderboard()">Leaderboard</button>
+          <button id="leaderboard_" [disabled]="disabled === true" type="button" class="btn btn-light button-custom" routerLink='/leaderboard' (click)="getLeaderboard()">Leaderboard</button>
         </li>
         <li class="nav-item">
-          <button type="button" class="btn btn-light button-custom" routerLink='/play'>Play Game</button>
-        </li>
-        <li class="nav-item">
-          <button type="button" class="btn btn-light button-custom" routerLink='/socket'>Socket</button>
+          <button id="play_game" [disabled]="disabled === true" type="button" class="btn btn-light button-custom" routerLink='/play'>Play Game</button>
         </li>
     </ul>
   </div>

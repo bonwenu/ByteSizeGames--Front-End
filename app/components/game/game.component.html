@@ -5,26 +5,29 @@
       <h1>{{q_.question}}</h1>
   <hr>
   <h3>{{q_.correct_answer}}</h3>
+  
   <br>
-  <hr>
-  <div #questionDisplay></div>
-  <div #feedback></div>
-  <button class="btn btn-light" (click) = displayQuestion() >Start</button>
-  <br>
-  <hr>
   <hr>
   <div class="row justify-content-md-center">
-  <div class="col col-lg-2">
-  <!-- <h3>{{counter}}</h3> -->
-  <h3 #countOutput></h3>
-  <button class="btn btn-light" (click)=countdown()>Countdown Start</button>
+  <div class="col col-lg-8">
+  <h3>{{counter}}</h3>
+  <h1 id="questionDiv">{{theQuestion}}</h1>
   </div>
   </div>
   <br>
-    <!-- <button class="btn btn-light button-custom" type="button" *ngIf="show" (click)="openModalWithClass(template)">Create Answer</button> -->
     <br>
-    <h3 *ngIf="show_answer">{{answers}}</h3>
+    <!-- <h3 *ngIf="show_answer">{{answers}}</h3> -->
+    <button class="btn btn-light" (click)="selection('btnOne')" id="btnOne"></button>
+    <br><hr>
+    <button class="btn btn-light" (click)="selection('btnTwo')" id="btnTwo"></button>
+    <br><hr>
+    <button class="btn btn-light" (click)="selection('btnThree')" id="btnThree"></button>
+    <br><hr>
+    <button class="btn btn-light" (click)="selection('btnFour')" id="btnFour"></button>
     <br>
+
+    <br>
+    <p id="goBefore"></p>
     </div>
 
     <div class="container-fluid container2-custom">
@@ -44,7 +47,6 @@
             <div #feedback></div>
         </div>
         <br>
-        <h3 *ngIf="show_answer">{{user_answer}}</h3>
         </div>
       </div>
     </div>
