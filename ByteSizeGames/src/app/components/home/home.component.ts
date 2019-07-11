@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetCategoryService } from 'src/app/services/get-category.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { Result } from 'src/app/models/Question';
-
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ import { Result } from 'src/app/models/Question';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-    
+  
   categories_array = [];
   chosenCategory: number = 0;
   difficulty_array = ["any", "easy", "medium", "hard"];
@@ -25,20 +25,8 @@ export class HomeComponent implements OnInit {
     incorrect_answers: []
   };
 
-
-  // getQuestion() {
-  //   this.questionService.getQuestion().then(all_Questions => {
-
-  //     this.q_ = all_Questions.results[0];
-
-  //     this.incorrectAnswersArray = all_Questions.results[0].incorrect_answers;
-  //     this.incorrectAnswersArray.push(all_Questions.results[0].correct_answer);
-  //     this.fisherYates(this.incorrectAnswersArray);
-
-  //   });
-  // }
-
-  constructor(private getCatService: GetCategoryService, private questionService: QuestionService) {
+  constructor(private getCatService: GetCategoryService, private questionService: QuestionService,
+    private spinner: NgxSpinnerService) {
   }
 
   sendQuestionInfoToService(): void {
@@ -51,6 +39,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    this.spinner.show("homeSpinner");
+    setTimeout(() => {
+      this.spinner.hide("homeSpinner");
+    }, 2000); //2s
+
   }
 
   getCategories() {

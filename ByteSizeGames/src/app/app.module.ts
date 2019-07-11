@@ -23,6 +23,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ChatDemoComponent } from './components/chat-demo/chat-demo.component';
+
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -35,7 +40,8 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     LeaderboardComponent,
     PlayComponent,
     LobbyComponent,
-    GameComponent
+    GameComponent,
+    ChatDemoComponent
   ],
   imports: [
     BrowserModule,
@@ -46,12 +52,17 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     MatSelectModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    
 
     ModalModule.forRoot(),
 
     ButtonsModule.forRoot(),
 
-    ProgressbarModule.forRoot()
+    ProgressbarModule.forRoot(),
+
+    CarouselModule.forRoot()
   ],
   providers: [LoginServiceService, QuestionService, GetCategoryService],
   bootstrap: [AppComponent]

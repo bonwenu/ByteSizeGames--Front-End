@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-custom">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -8,16 +9,112 @@
       <li class="nav-item active">
         <button type="button" class="btn btn-light button-custom" routerLink='/home'>Home</button>
       </li>
+
       <li class="nav-item">
-          <button type="button" class="btn btn-light button-custom" routerLink='/login'>Login</button>
-        </li>
-        <li class="nav-item">
-          <button type="button" class="btn btn-light button-custom" routerLink='/leaderboard' (click)="getLeaderboard()">Leaderboard</button>
-        </li>
-        <li class="nav-item">
-          <button type="button" class="btn btn-light button-custom" routerLink='/play'>Play Game</button>
-        </li>
+        <button type="button" class="btn btn-light button-custom" routerLink='/leaderboard'
+          (click)="getLeaderboard()">Leaderboard</button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="btn btn-light button-custom" (click)="getCategories()" data-toggle="modal"
+          data-target="#create-new-game">Play Game</button>
+      </li>
+
+
+    </ul>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <button type="button" class="btn btn-light button-custom" routerLink='/login'><i
+            class="fas fa-sign-in-alt fa-2x"></i></button>
+      </li>
     </ul>
   </div>
 </nav>
 
+
+<!-- 
+<div class="div-home">
+
+    <div class="text-center">
+        <button type="button" class="btn btn-outline-primary ml-auto" (click)="getCategories()" data-toggle="modal"
+            data-target="#create-new-game">
+            Host a Game
+        </button>
+
+    </div>
+
+
+</div> 
+-->
+
+
+<div class="modal modal-custom fade" id="create-new-game">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="container-fluid">
+
+        <h3 class="text-center" style="margin-top: 1rem; color: white">Difficulty</h3>
+        <select [(ngModel)]="chosenDifficulty" (ngModelChange)="showChosenDifficultyLog();">
+          <option *ngFor="let diff of difficulty_array" [ngValue]="diff" selected>
+            {{diff}}
+          </option>
+        </select>
+
+
+        <h3 class="text-center" style="margin-top: 1rem; color: white">Category</h3>
+        <select [(ngModel)]="chosenCategory" (ngModelChange)="showChosenCategoryLog();">
+          <option value="" [selected]="!chosenCategory">any</option>
+          <option *ngFor="let name_ of categories_array" [ngValue]="name_.id">
+            {{name_.name}}
+          </option>
+        </select>
+
+
+
+
+      </div>
+
+      <div class="modal-footer" style="margin-top:1rem;">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          
+        <button type="button" class="btn btn-primary" data-dismiss="modal" 
+          (click)="sendQuestionInfoToService(); routeToGame()" data-toggle="modal"
+          data-target="#success-creating">Create</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- 
+<div class="container-fluid">
+  <ul>
+    <li [(ngModel)]="gameListArray" *ngFor="let item of gameListArray">{{item}}
+    </li>
+  </ul>
+
+</div> -->
+<ngx-spinner 
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="#fff"
+type="ball-atom"
+name="toGameSpinner"></ngx-spinner>
+
+
+<!-- 
+<div class="modal modal-custom fade" id="success-creating">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="success-checkmark">
+        <div class="check-icon">
+          <span class="icon-line line-tip"></span>
+          <span class="icon-line line-long"></span>
+          <div class="icon-circle"></div>
+          <div class="icon-fix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
