@@ -5,6 +5,7 @@ import { QuestionService } from 'src/app/services/question.service';
 import { Result } from 'src/app/models/Question';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-nav",
@@ -13,22 +14,63 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class NavComponent implements OnInit {
 
+  //hidden: boolean = true;
+
   constructor(
     private getCatService: GetCategoryService,
     private questionService: QuestionService,
     private router: Router,
     private spinner: NgxSpinnerService
-  ) {}
+  ) {
+    //this.validateLogin();
+  }
 
   ngOnInit() {
+    console.log("ngOnInit called");
     this.getCategories();
+    this.validateLogin();
+  }
+
+  leaderboard_play_logout: boolean;
+  logIn: boolean;
+
+  isLoggedIn: Observable<boolean>;                  // {1}
+
+
+  validateLogin(){
+    //console.log("On load navs are hidden " + this.hidden);
+    console.log("what is in the session storage? " + sessionStorage.getItem("User"));
+    if (sessionStorage.getItem("User") !== null){ // user is LOGGED IN
+      // shows leaderboard_play_logout;
+      // DONT show Login
+      this.leaderboard_play_logout = true;
+      this.logIn = false;
+      console.log("User logged in?");
+      console.log("Should show leaderboard_play_logout " + this.leaderboard_play_logout)
+      console.log("Should NOT show logIn " + this.logIn);
+    } else { // NOT Logged In
+      // DONT show leaderboard_play_logout
+      // shows Login
+      this.leaderboard_play_logout = false;
+      this.logIn = true;
+      console.log("User NOT logged in");
+      console.log("Should NOT show leaderboard_play " + this.leaderboard_play_logout);
+      console.log("Should show logIn " + this.logIn);
+    }
+  };
+
+  logOut() {
+    this.logIn = true;
+    sessionStorage.removeItem("User");
+    window.sessionStorage.clear();
+    localStorage.clear();
+    console.log("Log out is clicked. Expect session storage length of 0: " + sessionStorage.length);
+    window.location.reload();
+    //this.router.navigateByUrl("/home");
   }
 
   getLeaderboard() {
     console.log("Loading Table");
-    // this.http.get(this.url).subscribe (data => {
-    //   console.log(data);
-    // });
   }
 
   routeToGame() {
@@ -53,18 +95,6 @@ export class NavComponent implements OnInit {
     incorrect_answers: []
   };
 
-  // getQuestion() {
-  //   this.questionService.getQuestion().then(all_Questions => {
-
-  //     this.q_ = all_Questions.results[0];
-
-  //     this.incorrectAnswersArray = all_Questions.results[0].incorrect_answers;
-  //     this.incorrectAnswersArray.push(all_Questions.results[0].correct_answer);
-  //     this.fisherYates(this.incorrectAnswersArray);
-
-  //   });
-  // }
-
   sendQuestionInfoToService(): void {
     console.log("inside send");
     console.log(this.chosenCategory);
@@ -78,7 +108,7 @@ export class NavComponent implements OnInit {
   getCategories() {
     this.getCatService.getCategoryList().then(all_categories => {
       this.categories_array = all_categories.trivia_categories;
-      console.log("Category array is " + this.categories_array);
+      //console.log("Category array is " + this.categories_array);
     });
   }
 

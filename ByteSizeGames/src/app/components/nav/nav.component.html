@@ -7,15 +7,15 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <button type="button" class="btn btn-light button-custom" routerLink='/home'>Home</button>
+        <button type="button" class="btn btn-light button-custom" routerLink='/home'><i class="fas fa-home fa-2x"></i></button>
       </li>
 
       <li class="nav-item">
-        <button type="button" class="btn btn-light button-custom" routerLink='/leaderboard'
+        <button type="button" *ngIf="!logIn" class="btn btn-light button-custom" routerLink='/leaderboard'
           (click)="getLeaderboard()">Leaderboard</button>
       </li>
-      <li class="nav-item">
-        <button type="button" class="btn btn-light button-custom" (click)="getCategories()" data-toggle="modal"
+      <li class="nav-item"> 
+        <button type="button" *ngIf="!logIn" class="btn btn-light button-custom" (click)="getCategories()" data-toggle="modal"
           data-target="#create-new-game">Play Game</button>
       </li>
 
@@ -23,8 +23,15 @@
     </ul>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
-        <button type="button" class="btn btn-light button-custom" routerLink='/login'><i
+        <button type="button" *ngIf="logIn" class="btn btn-light button-custom" routerLink='/login'><i
             class="fas fa-sign-in-alt fa-2x"></i></button>
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <button type="button" *ngIf="!logIn" class="btn btn-light button-custom" 
+        (click)="logOut()"><i
+            class="fas fa-sign-out-alt fa-2x"></i></button> 
       </li>
     </ul>
   </div>

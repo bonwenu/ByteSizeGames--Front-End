@@ -14,7 +14,7 @@ export class GetCategoryService {
   categoryList: string = 'https://opentdb.com/api_category.php';
 
   getCategoryList(): Promise<Categories> {
-    console.log('getting list of category');
+    //console.log('getting list of category');
     return this.http.get<Categories>(this.categoryList).toPromise();
   }
 

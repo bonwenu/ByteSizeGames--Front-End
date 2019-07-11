@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private getCatService: GetCategoryService, private questionService: QuestionService,
     private spinner: NgxSpinnerService) {
+      
   }
 
   sendQuestionInfoToService(): void {
@@ -49,7 +50,7 @@ export class HomeComponent implements OnInit {
   getCategories() {
     this.getCatService.getCategoryList(). then((all_categories) => {
       this.categories_array = all_categories.trivia_categories;
-      console.log("Category array is " + this.categories_array);
+      //console.log("Category array is " + this.categories_array);
     })
   }
 
