@@ -17,13 +17,13 @@
   <br>
     <br>
     <!-- <h3 *ngIf="show_answer">{{answers}}</h3> -->
-    <button class="btn btn-light" (click)="selection('btnOne')" id="btnOne"></button>
+    <button [disabled]="disabled === true" class="btn btn-light" (click)="selection('btnOne')" id="btnOne"></button>
     <br><hr>
-    <button class="btn btn-light" (click)="selection('btnTwo')" id="btnTwo"></button>
+    <button [disabled]="disabled === true" class="btn btn-light" (click)="selection('btnTwo')" id="btnTwo"></button>
     <br><hr>
-    <button class="btn btn-light" (click)="selection('btnThree')" id="btnThree"></button>
+    <button  [disabled]="disabled === true" class="btn btn-light" (click)="selection('btnThree')" id="btnThree"></button>
     <br><hr>
-    <button class="btn btn-light" (click)="selection('btnFour')" id="btnFour"></button>
+    <button [disabled]="disabled === true"  class="btn btn-light" (click)="selection('btnFour')" id="btnFour"></button>
     <br>
 
     <br>

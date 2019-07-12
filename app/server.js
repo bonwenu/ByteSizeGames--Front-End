@@ -5,6 +5,9 @@ var io = require ("socket.io").listen(server);
 
 let users = [];
 let connections = [];
+let hostConnected = false;
+var clients = 0;
+
 
 server.listen(process.env.PORT || 3000);
 console.log("Server running...");
@@ -16,17 +19,27 @@ app.get("/", function(req, res){
 io.sockets.on("connection", function(socket){
     connections.push(socket);
     console.log("Connected: %s sockets connected", connections.length);
-
+    
+    clients++;
+   io.sockets.emit('broadcast',{ description: clients + ' clients connected!'});
 
     // Disconnect
     socket.on("disconnect", function(data) {
-        
+        clients--;
+        io.sockets.emit('broadcast',{ description: clients + ' clients connected!'})
         users.splice(users.indexOf(socket.username), 1);
         updateUsernames();
         //connections.splice(connections.indexOf(socket), 1);
         connections.pop(socket);
         console.log("Disconnected: %s sockets connected", connections.length);
     });
+
+   // Start game
+   socket.on('start_pushed', function(data){
+    // console.log(data);
+    io.sockets.emit('start_game', "/game");
+    });
+
     
 
     // Handle chat event

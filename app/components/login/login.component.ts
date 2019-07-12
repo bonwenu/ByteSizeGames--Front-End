@@ -66,9 +66,7 @@ export class LoginComponent implements OnInit {
       this.path_ = '/play';
       console.log(this.path_);
       this.router.navigateByUrl('/play');
-      window.location.reload();
-
-
+      this.navComp.reloadPage();
     }
     });
   }

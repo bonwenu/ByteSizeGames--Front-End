@@ -39,4 +39,8 @@ export class NavComponent implements OnInit {
     }
   };
 
+  reloadPage(){
+    window.location.reload();
+  }
+
 }
