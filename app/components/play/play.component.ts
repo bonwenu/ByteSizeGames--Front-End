@@ -59,6 +59,10 @@ export class PlayComponent implements OnInit {
     })
   }
 
+  reloadPage(){
+    window.location.reload();
+  }
+
 
   getToken(){
     if(sessionStorage.getItem("token") === null){

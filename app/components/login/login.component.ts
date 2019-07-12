@@ -8,6 +8,7 @@ import { timer } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { User } from 'src/app/models/User';
 import { NavComponent } from '../nav/nav.component';
+import { PlayComponent } from '../play/play.component';
 
 
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   modalRef: BsModalRef;
   users : object; 
 
+
   username : string;
   user_Pass : string;
   user_Pass_2 : string;
@@ -30,11 +32,12 @@ export class LoginComponent implements OnInit {
   add_border : string;
   path_ : string;
   //user;
-  
+  createAccountError : string;
+
   counter = 5;
 
   constructor(private modalService: BsModalService, private LoginService: LoginServiceService, private router: Router,
-    private route: ActivatedRoute, private http : HttpClient, private navComp : NavComponent) {}
+    private route: ActivatedRoute, private http : HttpClient, private navComp : NavComponent, private play : PlayComponent) {}
  
   openModalWithClass(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
@@ -44,9 +47,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(sessionStorage.getItem("User")!== null){
+      this.router.navigateByUrl('/play');
+
+    }
   }
 
-  
 
 
    doLogin(username_ : string, password_ : string){
@@ -66,14 +72,20 @@ export class LoginComponent implements OnInit {
       this.path_ = '/play';
       console.log(this.path_);
       this.router.navigateByUrl('/play');
+      //this.play.reloadPage();
       this.navComp.reloadPage();
     }
     });
   }
-  submitForm(username : string, user_Pass : string, user_Pass_2: string, first_Name : string, last_Name, email : string) {
+  submitForm(username : string, user_Pass : string, first_Name : string, last_Name, email : string) {
     console.log("Form submitted" + "Login.components.ts  out of sub");
-    this.LoginService.createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email);
-    console.log("Yo these null? " + username, user_Pass, user_Pass_2, first_Name, last_Name, email);
+    if (username === "" || user_Pass === "" || first_Name === "" || last_Name === "" || email === ""){
+      console.log("You done messed up");
+      this.createAccountError = "Please enter valid information";
+    } else {
+    this.LoginService.createTheAccount(username, user_Pass, first_Name, last_Name, email);
+    console.log("Yo these null? " + username, user_Pass, first_Name, last_Name, email);
+    }
   }
   
    

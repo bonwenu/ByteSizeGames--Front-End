@@ -30,6 +30,10 @@
     <p id="goBefore"></p>
     </div>
 
+    <br>
+    <hr>
+    <button type="button" [hidden]="choicemade === false" class="btn btn-light" (click)="playAgain()" routerLink="/lobby" >Play Again?</button>
+
     <div class="container-fluid container2-custom">
       <div class="row justify-content-md-center">
         <div class="col col-lg-2">

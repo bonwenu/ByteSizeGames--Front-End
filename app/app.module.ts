@@ -34,7 +34,7 @@ import { ChatDemoComponent } from './components/chat-demo/chat-demo.component';
     HttpClientModule,
     ModalModule.forRoot()
   ],
-  providers: [LoginServiceService, QuestionService, NavComponent],
+  providers: [LoginServiceService, QuestionService, NavComponent, LobbyComponent, PlayComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

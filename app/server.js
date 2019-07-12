@@ -40,6 +40,12 @@ io.sockets.on("connection", function(socket){
     io.sockets.emit('start_game', "/game");
     });
 
+    // Play Again
+    socket.on('back_lobby', function(data){
+        // console.log(data);
+        io.sockets.emit('back_to_lobby', "/lobby");
+        });
+
     
 
     // Handle chat event

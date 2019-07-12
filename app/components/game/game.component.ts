@@ -10,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
 import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
 import { Variable } from '@angular/compiler/src/render3/r3_ast';
 import { noConflict } from 'q';
+import { LobbyComponent } from '../lobby/lobby.component';
+import { Router } from '@angular/router';
 
 
 export function getProgressbarConfig(): ProgressbarConfig {
@@ -81,9 +83,12 @@ export class GameComponent implements OnInit {
   allUsers;
   numOfUsers;
   disabled: boolean;
+  choicemade: boolean;
+
+  questionCounter = 0;
 
 
-  constructor(private modalService: BsModalService, private questionService: QuestionService, private http : HttpClient) { }
+  constructor(private modalService: BsModalService, private questionService: QuestionService, private http : HttpClient, private lobby : LobbyComponent, private router : Router) { }
 
   userKey : any = {};
 
@@ -115,6 +120,7 @@ export class GameComponent implements OnInit {
     this.answerBelongsTo = this.curUser.username;
     this.allUsernames = [];
     this.allAnswers = [];
+    this.choicemade = false;
   }
 
   public ngAfterViewInit() { 
@@ -132,6 +138,11 @@ export class GameComponent implements OnInit {
     this.socket.on('broadcast', (data) => {
       console.log("CLIENTS: " + data);
    });
+
+   this.socket.on('back_to_lobby', (data) =>{
+    console.log(data);
+    this.router.navigate([data])
+});
 
   }
 
@@ -197,8 +208,8 @@ export class GameComponent implements OnInit {
        // console.log(("Full: " + JSON.parse(data[2]).results)[0]);
       //  console.log((JSON.parse(data[2]).results)[0].question);
       //  console.log((JSON.parse(data[2]).results)[0].correct_answer);
-        this.theQuestion = (JSON.parse(data[2]).results)[0].question;
-        this.correctAnswer = ((JSON.parse(data[2]).results)[0].correct_answer);
+        this.theQuestion = (JSON.parse(data[this.questionCounter]).results)[0].question;
+        this.correctAnswer = ((JSON.parse(data[this.questionCounter]).results)[0].correct_answer);
         document.getElementById("questionDiv").innerHTML = this.theQuestion;
     })
   }
@@ -235,10 +246,12 @@ export class GameComponent implements OnInit {
   counterReachesZero = true;
 
 
+
   selection(selected : string){
     let selectedBtn = document.getElementById(selected);
     console.log(this.allAnswers);
 
+    this.choicemade = true;
     for (let varAnswer in this.allUsernames) {
       console.log("VARANSWER: " + varAnswer);
       console.log("SELECTED: " + selectedBtn.innerHTML);
@@ -260,13 +273,25 @@ export class GameComponent implements OnInit {
     }
   }
 
+  playAgain(){
+    console.log("Play Again");
+    //this.questionCounter++;
+    this.initializeQuestions();
+    this.socket.emit("back_lobby", "holder");
+    //this.getTokens();
+    //this.lobby.startGame();
+    
+  }
+
   timer() {
         let intervalId = setInterval(() => {
             this.counter = this.counter - 1;
             console.log(this.counter)
             if(this.counter === 0 && this.round === 0) {
               //clearInterval(intervalId)
+              if (sessionStorage.getItem("Host") === null) {
               this.show = !this.show;
+            }
               this.counter = 10;
               this.round++;
             } else if (this.counter === 0 && this.round === 1){

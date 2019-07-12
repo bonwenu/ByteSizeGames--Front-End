@@ -39,6 +39,15 @@ export class NavComponent implements OnInit {
     }
   };
 
+  logOut() {
+    sessionStorage.clear();
+    //window.location.reload();
+  }
+
+  enabled(){
+    this.disabled = false;
+  }
+
   reloadPage(){
     window.location.reload();
   }

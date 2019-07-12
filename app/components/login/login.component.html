@@ -18,6 +18,8 @@
       <p class="lead">No Account? Create one here!</p>
 
       <button type="button" class="btn btn-light button-custom" (click)="openModalWithClass(template)">Create Account</button>
+      <br>
+      <p class="lead">{{createAccountError}}</p>
       
     </div>
   </div>
@@ -47,7 +49,7 @@
         <input #email type="email" class="form-control" id="email_Input" placeholder="Email">
         <br>
         <button type="button" class="btn btn-light button-custom" 
-          (click)='submitForm(username.value, user_Pass.value, user_Pass_2.value, first_Name.value, last_Name.value, email.value)' 
+          (click)='submitForm(username.value, user_Pass.value, first_Name.value, last_Name.value, email.value)' 
           (click)="modalRef.hide()">Submit</button>
   
     </div>

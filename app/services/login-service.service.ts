@@ -34,7 +34,7 @@ export class LoginServiceService {
 
 
   // Attempt #567
-  createTheAccount(username, user_Pass, user_Pass_2, first_Name, last_Name, email){
+  createTheAccount(username, user_Pass, first_Name, last_Name, email){
     let url = "http://localhost:8082/users";
     console.log("We be postin stuff");
     return this.http.post(url, {"firstName" : first_Name,  "lastName" : last_Name, "username" : username, "password" : user_Pass, "email" : email}).subscribe( data => {console.log("POST sent");})
